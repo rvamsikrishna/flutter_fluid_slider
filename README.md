@@ -1,5 +1,9 @@
 # Fluid Slider for Flutter
 
+<a href="https://github.com/Solido/awesome-flutter">
+   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
+
 Inspired by a dribbble by [Virgil Pana](https://dribbble.com/virgilpana).
 
 ![enter image description here](https://lh3.googleusercontent.com/VqMBrwHTCI_e9nc4C0IbyD2W-Bytj46VVKWdr198MqVJ2UnzQ8R3W5vK9JriayLNGFx9RkPKAACl "Demo gif")
