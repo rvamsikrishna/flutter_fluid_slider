@@ -111,6 +111,16 @@ class FluidSlider extends StatefulWidget {
   ///If not provided the [Colors.white] will be applied.
   final Color thumbColor;
 
+  ///The curve of the animation
+  ///
+  ///If not provided [Curves.easeInOut] will be applied.
+  final Curve curve;
+
+  /// The duration of the animation, in milliseconds
+  /// 
+  /// If not provided, 200 will be applied.
+  final int milliseconds;
+
   const FluidSlider({
     Key key,
     @required this.value,
@@ -125,6 +135,8 @@ class FluidSlider extends StatefulWidget {
     this.onChangeEnd,
     this.sliderColor,
     this.thumbColor,
+    this.curve = Curves.easeInOut,
+    this.milliseconds = 200,
   })  : assert(value != null),
         assert(min != null),
         assert(max != null),
@@ -146,12 +158,12 @@ class _FluidSliderState extends State<FluidSlider>
   initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 400),
+      duration: Duration(milliseconds: widget.milliseconds),
       vsync: this,
     );
 
     _thumbAnimation = CurvedAnimation(
-      curve: Curves.bounceOut,
+      curve: widget.curve,
       parent: _animationController,
     );
   }
