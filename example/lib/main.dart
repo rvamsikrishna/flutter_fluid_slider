@@ -41,8 +41,6 @@ class HomePageState extends State<HomePage> {
               },
               min: 0.0,
               max: 100.0,
-              curve: Curves.easeInOut,
-              milliseconds: 200,
             ),
             SizedBox(
               height: 100.0,

@@ -43,3 +43,4 @@ FluidSlider(
 ```
 
 For all the properties, check out the [docs](https://pub.dartlang.org/documentation/flutter_fluid_slider/latest/flutter_fluid_slider/FluidSlider-class.html).
+

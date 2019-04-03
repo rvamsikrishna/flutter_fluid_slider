@@ -54,7 +54,7 @@ FluidSlider(
 
   by dragging.
 
-  - The slider passes the new value to the callback but does not actually change state until the parent widget rebuilds the slider with the new value.
+  - The slider passes the new value to the callback but **does not actually change state until the parent widget rebuilds the slider with the new value**.
 
   - If null, the slider will be displayed as disabled.
 
@@ -69,6 +69,10 @@ FluidSlider(
 - `sliderColor` : The color of the slider. If not provided the ancestor `Theme`'s `primaryColor` will be applied.
 
 - `thumbColor` : The color of the thumb. If not provided the `Colors.white` will be applied.
+
+- `curve`: The curve of the animation. If not provided `Curves.easeInOut` will be applied.
+
+- `milliseconds`: The duration of the animation in milliseconds. Defaults to `200`.
 
 #### Credits:
 

@@ -118,7 +118,7 @@ class FluidSlider extends StatefulWidget {
 
   /// The duration of the animation, in milliseconds
   /// 
-  /// If not provided, 200 will be applied.
+  /// Defaults to 200.
   final int milliseconds;
 
   const FluidSlider({
@@ -142,6 +142,7 @@ class FluidSlider extends StatefulWidget {
         assert(max != null),
         assert(min <= max),
         assert(value >= min && value <= max),
+        assert(milliseconds > 0),
         super(key: key);
   @override
   _FluidSliderState createState() => _FluidSliderState();
