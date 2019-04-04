@@ -389,7 +389,7 @@ class _FluidSliderState extends State<FluidSlider>
                         ),
                         child: Center(
                           child: Text(
-                            widget.value.toInt().toString(),
+                            widget.value.round().toString(),
                             style: _currentValTextStyle(context),
                           ),
                         ),
