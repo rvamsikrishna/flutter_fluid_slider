@@ -1,4 +1,5 @@
 import 'dart:ui' show lerpDouble;
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 ///A fluid design slider that works just like the [Slider] material widget.
@@ -117,7 +118,7 @@ class FluidSlider extends StatefulWidget {
   final Curve curve;
 
   /// The duration of the animation, in milliseconds
-  /// 
+  ///
   /// Defaults to 200.
   final int milliseconds;
 
@@ -269,6 +270,29 @@ class _FluidSliderState extends State<FluidSlider>
 
   bool get _isInteractive => widget.onChanged != null;
 
+  String _formatValue(double value) {
+    if (value < 1000) {
+      return value.toInt().toString();
+    } else if (value < 1000000) {
+      double shorterVal = value / 1000;
+      return (shorterVal)
+              .toStringAsPrecision(shorterVal.toInt().toString().length + 1) +
+          'K';
+    } else if (value < 1000000000) {
+      double shorterVal = value / 1000000;
+      return (shorterVal)
+              .toStringAsPrecision(shorterVal.toInt().toString().length + 1) +
+          'M';
+    } else if (value < 1000000000000) {
+      double shorterVal = value / 1000000000;
+      return (shorterVal)
+              .toStringAsPrecision(shorterVal.toInt().toString().length + 1) +
+          'B';
+    } else {
+      return '...';
+    }
+  }
+
   Widget _buildMinMaxLabels(BuildContext context,
       {Widget custom, double value, Alignment alignment, EdgeInsets padding}) {
     final TextStyle textStyle =
@@ -278,14 +302,27 @@ class _FluidSliderState extends State<FluidSlider>
       padding: padding,
       child: Align(
         alignment: alignment,
-        child: custom ?? Text('${value.toInt()}', style: textStyle),
+        child: custom ?? Text(_formatValue(value), style: textStyle),
       ),
     );
   }
 
-  TextStyle _currentValTextStyle(BuildContext context) {
+  TextStyle _currentValTextStyle(BuildContext context, double value) {
+    double fontSize = 18;
+    if (_formatValue(value).length < 2) {
+      fontSize = 18;
+    } else if (_formatValue(value).length == 2) {
+      fontSize = 16;
+    } else if (_formatValue(value).length == 3) {
+      fontSize = 14;
+    } else if (_formatValue(value).length == 4) {
+      fontSize = 12;
+    } else {
+      fontSize = 10;
+    }
+
     return widget.valueTextStyle ??
-        Theme.of(context).textTheme.title.copyWith(fontWeight: FontWeight.bold);
+        Theme.of(context).textTheme.title.copyWith(fontWeight: FontWeight.bold, fontSize: fontSize);
   }
 
   @override
@@ -389,8 +426,8 @@ class _FluidSliderState extends State<FluidSlider>
                         ),
                         child: Center(
                           child: Text(
-                            widget.value.round().toString(),
-                            style: _currentValTextStyle(context),
+                            _formatValue(widget.value.roundToDouble()),
+                            style: _currentValTextStyle(context, widget.value),
                           ),
                         ),
                       ),
