@@ -111,6 +111,11 @@ class FluidSlider extends StatefulWidget {
   ///If not provided the [Colors.white] will be applied.
   final Color thumbColor;
 
+  ///Whether to display the first decimal value of the slider value
+  ///
+  ///defaults to false
+  final bool showDecimalValue;
+
   const FluidSlider({
     Key key,
     @required this.value,
@@ -125,6 +130,7 @@ class FluidSlider extends StatefulWidget {
     this.onChangeEnd,
     this.sliderColor,
     this.thumbColor,
+    this.showDecimalValue = false,
   })  : assert(value != null),
         assert(min != null),
         assert(max != null),
@@ -256,23 +262,18 @@ class _FluidSliderState extends State<FluidSlider>
 
   bool get _isInteractive => widget.onChanged != null;
 
-  Widget _buildMinMaxLabels(BuildContext context,
-      {Widget custom, double value, Alignment alignment, EdgeInsets padding}) {
-    final TextStyle textStyle =
-        widget.labelsTextStyle ?? Theme.of(context).accentTextTheme.title;
-
-    return Padding(
-      padding: padding,
-      child: Align(
-        alignment: alignment,
-        child: custom ?? Text('${value.toInt()}', style: textStyle),
-      ),
-    );
-  }
-
   TextStyle _currentValTextStyle(BuildContext context) {
-    return widget.valueTextStyle ??
-        Theme.of(context).textTheme.title.copyWith(fontWeight: FontWeight.bold);
+    final TextStyle defaultStyle = widget.showDecimalValue
+        ? Theme.of(context)
+            .textTheme
+            .subhead
+            .copyWith(fontWeight: FontWeight.bold)
+        : Theme.of(context)
+            .textTheme
+            .title
+            .copyWith(fontWeight: FontWeight.bold);
+
+    return widget.valueTextStyle ?? defaultStyle;
   }
 
   @override
@@ -332,24 +333,24 @@ class _FluidSliderState extends State<FluidSlider>
           child: Stack(
             overflow: Overflow.visible,
             children: <Widget>[
-              _buildMinMaxLabels(
-                context,
+              _MinMaxLabels(
+                textStyle: widget.labelsTextStyle,
                 alignment: Alignment.centerLeft,
-                custom: widget.start,
+                child: widget.start,
                 value: widget.min,
                 padding: EdgeInsets.only(left: 15.0),
               ),
-              _buildMinMaxLabels(
-                context,
+              _MinMaxLabels(
+                textStyle: widget.labelsTextStyle,
                 alignment: Alignment.centerRight,
-                custom: widget.end,
+                child: widget.end,
                 value: widget.max,
                 padding: EdgeInsets.only(right: 15.0),
               ),
               PositionedTransition(
                 rect: thumbPosition,
                 child: CustomPaint(
-                  painter: ThumbSplashPainter(
+                  painter: _ThumbSplashPainter(
                     showContact: _animationController,
                     thumbPadding: thumbPadding,
                     splashColor: _sliderColor,
@@ -376,7 +377,9 @@ class _FluidSliderState extends State<FluidSlider>
                         ),
                         child: Center(
                           child: Text(
-                            widget.value.toInt().toString(),
+                            widget.showDecimalValue
+                                ? widget.value.toStringAsFixed(1)
+                                : widget.value.toInt().toString(),
                             style: _currentValTextStyle(context),
                           ),
                         ),
@@ -393,14 +396,14 @@ class _FluidSliderState extends State<FluidSlider>
   }
 }
 
-class ThumbSplashPainter extends CustomPainter {
+class _ThumbSplashPainter extends CustomPainter {
   final Animation showContact;
   //This is passed to calculate and compensate the value
   //of x for drawing the sticky fluid
   final thumbPadding;
   final Color splashColor;
 
-  ThumbSplashPainter({this.thumbPadding, this.showContact, this.splashColor});
+  _ThumbSplashPainter({this.thumbPadding, this.showContact, this.splashColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -425,4 +428,35 @@ class ThumbSplashPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class _MinMaxLabels extends StatelessWidget {
+  final Alignment alignment;
+  final TextStyle textStyle;
+  final Widget child;
+  final double value;
+  final EdgeInsets padding;
+
+  const _MinMaxLabels({
+    Key key,
+    this.alignment,
+    this.textStyle,
+    this.child,
+    this.value,
+    this.padding,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Align(
+        alignment: alignment,
+        child: child ??
+            Text(
+              '${value.toInt()}',
+              style: textStyle ?? Theme.of(context).accentTextTheme.title,
+            ),
+      ),
+    );
+  }
 }

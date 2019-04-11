@@ -70,6 +70,9 @@ FluidSlider(
 
 - `thumbColor` : The color of the thumb. If not provided the `Colors.white` will be applied.
 
+- `showDecimalValue` : Whether to display the first decimal value of the slider value. Defaults to `false`.
+
+
 #### Credits:
 
 - [Ramotion](https://dribbble.com/shots/5343166-Fluid-Slider-Optimized-iOS-Control-Open-Source) - implementation for ios and android
