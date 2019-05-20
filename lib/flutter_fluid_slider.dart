@@ -204,6 +204,14 @@ class _FluidSliderState extends State<FluidSlider>
     _currX = 0.0;
     _animationController.reverse();
   }
+  
+  void _onHorizontalDragCancel() {
+    if (widget.onChangeEnd != null) {
+      _handleDragEnd(_clamp(_currX));
+    }
+    _currX = 0.0;
+    _animationController.reverse();
+  }
 
   double _clamp(double value) {
     return value.clamp(0.0, 1.0);
@@ -356,6 +364,7 @@ class _FluidSliderState extends State<FluidSlider>
                     splashColor: _sliderColor,
                   ),
                   child: GestureDetector(
+                    onHorizontalDragCancel: _onHorizontalDragCancel,
                     onHorizontalDragDown: _onHorizontalDragDown,
                     onHorizontalDragStart: _onHorizontalDragStart,
                     onHorizontalDragUpdate: _onHorizontalDragUpdate,
