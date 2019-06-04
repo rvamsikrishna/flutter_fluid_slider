@@ -116,29 +116,35 @@ class FluidSlider extends StatefulWidget {
   ///defaults to false
   final bool showDecimalValue;
 
-  const FluidSlider({
-    Key key,
-    @required this.value,
-    this.min = 0.0,
-    this.max = 1.0,
-    this.start,
-    this.end,
-    @required this.onChanged,
-    this.labelsTextStyle,
-    this.valueTextStyle,
-    this.onChangeStart,
-    this.onChangeEnd,
-    this.sliderColor,
-    this.thumbColor,
-    this.showDecimalValue = false,
-  })  : assert(value != null),
+  ///The height of widget
+  ///
+  ///defaults to 60.0
+  final double height;
+
+  const FluidSlider(
+      {Key key,
+      @required this.value,
+      this.min = 0.0,
+      this.max = 1.0,
+      this.start,
+      this.end,
+      @required this.onChanged,
+      this.labelsTextStyle,
+      this.valueTextStyle,
+      this.onChangeStart,
+      this.onChangeEnd,
+      this.sliderColor,
+      this.thumbColor,
+      this.showDecimalValue = false,
+      this.height = 60.0})
+      : assert(value != null),
         assert(min != null),
         assert(max != null),
         assert(min <= max),
         assert(value >= min && value <= max),
         super(key: key);
   @override
-  _FluidSliderState createState() => _FluidSliderState();
+  _FluidSliderState createState() => _FluidSliderState(height: height);
 }
 
 class _FluidSliderState extends State<FluidSlider>
@@ -147,6 +153,9 @@ class _FluidSliderState extends State<FluidSlider>
   double _currX = 0.0;
   AnimationController _animationController;
   CurvedAnimation _thumbAnimation;
+  final double height;
+
+  _FluidSliderState({this.height});
 
   @override
   initState() {
@@ -267,11 +276,11 @@ class _FluidSliderState extends State<FluidSlider>
         ? Theme.of(context)
             .textTheme
             .subhead
-            .copyWith(fontWeight: FontWeight.bold)
+            .copyWith(fontWeight: FontWeight.bold, fontSize: height * 0.4)
         : Theme.of(context)
             .textTheme
             .title
-            .copyWith(fontWeight: FontWeight.bold);
+            .copyWith(fontWeight: FontWeight.bold, fontSize: height * 0.4);
 
     return widget.valueTextStyle ?? defaultStyle;
   }
@@ -281,7 +290,7 @@ class _FluidSliderState extends State<FluidSlider>
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         //The radius of the slider thumb control
-        final double thumbDiameter = 60.0;
+        final double thumbDiameter = height;
         //The offset of the thumb so that it does not touch the slider border when at min/max position.
         final double thumbPadding = 8.0;
         //The value by which the thum positions should interpolate.
@@ -310,8 +319,8 @@ class _FluidSliderState extends State<FluidSlider>
             thumbPositionLeft, 0.00, thumbPositionRight, 0.0);
 
         //Popped up position of slider thumb.
-        final RelativeRect endRect = RelativeRect.fromLTRB(
-            thumbPositionLeft, -65.0, thumbPositionRight, 65.0);
+        final RelativeRect endRect = RelativeRect.fromLTRB(thumbPositionLeft,
+            -1.08 * height, thumbPositionRight, 1.08 * height);
 
         //Describes the position of the thumb slider.
         //Mainly useful to animate the thumb popping up.
@@ -325,6 +334,7 @@ class _FluidSliderState extends State<FluidSlider>
           height: thumbDiameter,
           decoration: BoxDecoration(
             color: _sliderColor,
+            border: Border.all(color: _sliderColor),
             borderRadius: BorderRadius.horizontal(
               left: Radius.circular(10.0),
               right: Radius.circular(10.0),
@@ -339,6 +349,7 @@ class _FluidSliderState extends State<FluidSlider>
                 child: widget.start,
                 value: widget.min,
                 padding: EdgeInsets.only(left: 15.0),
+                height: height,
               ),
               _MinMaxLabels(
                 textStyle: widget.labelsTextStyle,
@@ -346,6 +357,7 @@ class _FluidSliderState extends State<FluidSlider>
                 child: widget.end,
                 value: widget.max,
                 padding: EdgeInsets.only(right: 15.0),
+                height: height,
               ),
               PositionedTransition(
                 rect: thumbPosition,
@@ -436,15 +448,17 @@ class _MinMaxLabels extends StatelessWidget {
   final Widget child;
   final double value;
   final EdgeInsets padding;
+  final double height;
 
-  const _MinMaxLabels({
-    Key key,
-    this.alignment,
-    this.textStyle,
-    this.child,
-    this.value,
-    this.padding,
-  }) : super(key: key);
+  const _MinMaxLabels(
+      {Key key,
+      this.alignment,
+      this.textStyle,
+      this.child,
+      this.value,
+      this.padding,
+      this.height})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -454,7 +468,11 @@ class _MinMaxLabels extends StatelessWidget {
         child: child ??
             Text(
               '${value.toInt()}',
-              style: textStyle ?? Theme.of(context).accentTextTheme.title,
+              style: textStyle ??
+                  Theme.of(context)
+                      .accentTextTheme
+                      .title
+                      .copyWith(fontSize: height * 0.6),
             ),
       ),
     );
