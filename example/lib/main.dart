@@ -34,6 +34,7 @@ class HomePageState extends State<HomePage> {
           children: <Widget>[
             FluidSlider(
               value: _value1,
+              height: 30.0,
               onChanged: (double newValue) {
                 setState(() {
                   _value1 = newValue;
@@ -46,6 +47,7 @@ class HomePageState extends State<HomePage> {
               height: 100.0,
             ),
             FluidSlider(
+              height: 30.0,
               value: _value2,
               onChanged: (double newValue) {
                 setState(() {
