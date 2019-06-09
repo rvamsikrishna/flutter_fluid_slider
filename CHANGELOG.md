@@ -14,3 +14,7 @@ given unbounded constraints, it will attempt to make itself 200.0 wide.
 
 The slider can show first decimal value in tye thumb.
 Also converted the rendering of the min, max labels from method to its own widget.
+
+## [1.0.1] - 9th june 2019
+
+Slider tap bug fixed.
