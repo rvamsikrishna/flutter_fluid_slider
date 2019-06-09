@@ -1,6 +1,6 @@
 name: flutter_fluid_slider
 description: A fluid design slider that works just like the Slider material widget.
-version: 1.0.0
+version: 1.0.1
 author: Vamsi Krishna <rvamsi1993@gmail.com>
 homepage: https://github.com/rvamsikrishna/flutter_fluid_slider.git
 documentation:
