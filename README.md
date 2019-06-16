@@ -18,7 +18,7 @@ Just add the package to your dependencies in the `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fluid_slider: ^0.0.1
+  flutter_fluid_slider: ^1.0.1
 ```
 
 ### Basic Usage
