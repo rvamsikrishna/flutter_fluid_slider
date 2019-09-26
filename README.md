@@ -72,6 +72,12 @@ FluidSlider(
 
 - `showDecimalValue` : Whether to display the first decimal value of the slider value. Defaults to `false`.
 
+- `mapValueToString` : called with value for the String to be rendered in the slider's thumb. E.g. use as: 
+
+```List<String> _map = ["one","two", "333", "four", "!", "max"]; return _map[value.toInt()];```  
+
+If null the value is converted to String based on [showDecimalValue]. 
+
 
 #### Credits:
 
