@@ -18,7 +18,7 @@ Just add the package to your dependencies in the `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fluid_slider: ^1.0.1
+  flutter_fluid_slider: ^1.0.2
 ```
 
 ### Basic Usage
@@ -72,11 +72,20 @@ FluidSlider(
 
 - `showDecimalValue` : Whether to display the first decimal value of the slider value. Defaults to `false`.
 
-- `mapValueToString` : called with value for the String to be rendered in the slider's thumb. E.g. use as: 
-
-```List<String> _map = ["one","two", "333", "four", "!", "max"]; return _map[value.toInt()];```  
-
-If null the value is converted to String based on [showDecimalValue]. 
+- `mapValueToString` : called with value for the String to be rendered in the slider's thumb.     E.g. display roman integers as follows:
+    ```dart
+    FluidSlider(
+      value:0.0.
+      min:1.0,
+      max:5.0,
+      onChanged:(){},
+      mapValueToString: (double value){
+        List<String> romanNumerals=['I', 'II', 'III', 'IV', 'V'];
+        return _romanNumerals[value.toInt()];
+      }
+    )
+    ```
+    If null the value is converted to String based on [showDecimalValue]. 
 
 
 #### Credits:

@@ -9,12 +9,16 @@ The fluid slider will be disabled if [onChanged] is null.
 By default, a fluid slider will be as wide as possible, with a height of 60.0. When
 given unbounded constraints, it will attempt to make itself 200.0 wide.
 
+## [1.0.2] - 27th september 2019
+
+Added `mapValueToString` property.
+
+## [1.0.1] - 9th june 2019
+
+Slider tap bug fixed.
 
 ## [1.0.0] - 11th march 2019
 
 The slider can show first decimal value in tye thumb.
 Also converted the rendering of the min, max labels from method to its own widget.
 
-## [1.0.1] - 9th june 2019
-
-Slider tap bug fixed.
