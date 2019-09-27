@@ -81,11 +81,11 @@ FluidSlider(
       onChanged:(){},
       mapValueToString: (double value){
         List<String> romanNumerals=['I', 'II', 'III', 'IV', 'V'];
-        return _romanNumerals[value.toInt()-1];
+        return _romanNumerals[value.toInt() - 1];
       }
     )
     ```
-    If null the value is converted to String based on [showDecimalValue]. 
+    See [example](https://github.com/rvamsikrishna/flutter_fluid_slider/blob/master/example/lib/main.dart#L82). If null the value is converted to String based on [showDecimalValue]. 
 
 
 #### Credits:
