@@ -75,13 +75,13 @@ FluidSlider(
 - `mapValueToString` : called with value for the String to be rendered in the slider's thumb.     E.g. display roman integers as follows:
     ```dart
     FluidSlider(
-      value:0.0.
+      value:_val,
       min:1.0,
       max:5.0,
       onChanged:(){},
       mapValueToString: (double value){
         List<String> romanNumerals=['I', 'II', 'III', 'IV', 'V'];
-        return _romanNumerals[value.toInt()];
+        return _romanNumerals[value.toInt()-1];
       }
     )
     ```
