@@ -116,6 +116,12 @@ class FluidSlider extends StatefulWidget {
   ///defaults to false
   final bool showDecimalValue;
 
+  ///Callback function to map the double values to String texts
+  ///
+  ///If null the value is converted to String based on [showDecimalValue]
+  final String Function(double) mapValueToString;
+
+
   const FluidSlider({
     Key key,
     @required this.value,
@@ -130,6 +136,7 @@ class FluidSlider extends StatefulWidget {
     this.onChangeEnd,
     this.sliderColor,
     this.thumbColor,
+    this.mapValueToString,
     this.showDecimalValue = false,
   })  : assert(value != null),
         assert(min != null),
@@ -386,9 +393,11 @@ class _FluidSliderState extends State<FluidSlider>
                         ),
                         child: Center(
                           child: Text(
-                            widget.showDecimalValue
-                                ? widget.value.toStringAsFixed(1)
-                                : widget.value.toInt().toString(),
+                            widget.mapValueToString != null
+                              ? widget.mapValueToString(widget.value)
+                              : widget.showDecimalValue
+                                  ? widget.value.toStringAsFixed(1)
+                                  : widget.value.toInt().toString(),
                             style: _currentValTextStyle(context),
                           ),
                         ),
@@ -421,14 +430,14 @@ class _ThumbSplashPainter extends CustomPainter {
       final Offset center = Offset(size.width / 2, size.height / 2);
 
       final Path path = Path();
-      path.moveTo(-0.0, size.height + 5.0);
+      path.moveTo(-0.0, size.height + 6.0);
       path.quadraticBezierTo(
           center.dx, size.height, thumbPadding / 2, center.dy);
 
       path.lineTo(size.width - thumbPadding / 2, center.dy);
 
       path.quadraticBezierTo(
-          center.dx, size.height, size.width + 0.0, size.height + 5.0);
+          center.dx, size.height, size.width + 0.0, size.height + 6.0);
 
       path.close();
       canvas.drawPath(path, Paint()..color = splashColor);
