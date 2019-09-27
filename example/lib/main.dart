@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   double _value1 = 0.0;
   double _value2 = 10.0;
+  double _value3 = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,23 @@ class HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
             ),
+            SizedBox(
+              height: 100.0,
+            ),
+            FluidSlider(
+                value: _value3,
+                sliderColor: Colors.purple,
+                onChanged: (double newValue) {
+                  setState(() {
+                    _value3 = newValue;
+                  });
+                },
+                min: 1.0,
+                max: 5.0,
+                mapValueToString: (double value) {
+                  List<String> romanNumerals = ['I', 'II', 'III', 'IV', 'V'];
+                  return romanNumerals[value.toInt() - 1];
+                }),
           ],
         ),
       ),
