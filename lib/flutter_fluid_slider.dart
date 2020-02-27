@@ -164,6 +164,7 @@ class _FluidSliderState extends State<FluidSlider>
   @override
   initState() {
     super.initState();
+    //The radius of the slider thumb control
     thumbDiameter = widget.thumbDiameter ?? 60.0;
     _animationController = AnimationController(
       duration: Duration(milliseconds: 400),
@@ -302,8 +303,6 @@ class _FluidSliderState extends State<FluidSlider>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        //The radius of the slider thumb control
-        //final double thumbDiameter = 60.0;
         //The offset of the thumb so that it does not touch the slider border when at min/max position.
         final double thumbPadding = 8.0;
         //The value by which the thum positions should interpolate.
