@@ -121,6 +121,10 @@ class FluidSlider extends StatefulWidget {
   ///If null the value is converted to String based on [showDecimalValue]
   final String Function(double) mapValueToString;
 
+  ///The diameter of the thumb, it's also the height of the slider
+  ///
+  ///defaults to 60.0
+  final double thumbDiameter;
 
   const FluidSlider({
     Key key,
@@ -138,6 +142,7 @@ class FluidSlider extends StatefulWidget {
     this.thumbColor,
     this.mapValueToString,
     this.showDecimalValue = false,
+    this.thumbDiameter,
   })  : assert(value != null),
         assert(min != null),
         assert(max != null),
@@ -154,10 +159,13 @@ class _FluidSliderState extends State<FluidSlider>
   double _currX = 0.0;
   AnimationController _animationController;
   CurvedAnimation _thumbAnimation;
+  double thumbDiameter;
 
   @override
   initState() {
     super.initState();
+    //The radius of the slider thumb control
+    thumbDiameter = widget.thumbDiameter ?? 60.0;
     _animationController = AnimationController(
       duration: Duration(milliseconds: 400),
       vsync: this,
@@ -211,7 +219,7 @@ class _FluidSliderState extends State<FluidSlider>
     _currX = 0.0;
     _animationController.reverse();
   }
-  
+
   void _onHorizontalDragCancel() {
     if (widget.onChangeEnd != null) {
       _handleDragEnd(_clamp(_currX));
@@ -295,8 +303,6 @@ class _FluidSliderState extends State<FluidSlider>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        //The radius of the slider thumb control
-        final double thumbDiameter = 60.0;
         //The offset of the thumb so that it does not touch the slider border when at min/max position.
         final double thumbPadding = 8.0;
         //The value by which the thum positions should interpolate.
@@ -325,8 +331,9 @@ class _FluidSliderState extends State<FluidSlider>
             thumbPositionLeft, 0.00, thumbPositionRight, 0.0);
 
         //Popped up position of slider thumb.
-        final RelativeRect endRect = RelativeRect.fromLTRB(
-            thumbPositionLeft, -65.0, thumbPositionRight, 65.0);
+        final poppedPosition = thumbDiameter + 5;
+        final RelativeRect endRect = RelativeRect.fromLTRB(thumbPositionLeft,
+            poppedPosition * -1, thumbPositionRight, poppedPosition);
 
         //Describes the position of the thumb slider.
         //Mainly useful to animate the thumb popping up.
@@ -394,10 +401,10 @@ class _FluidSliderState extends State<FluidSlider>
                         child: Center(
                           child: Text(
                             widget.mapValueToString != null
-                              ? widget.mapValueToString(widget.value)
-                              : widget.showDecimalValue
-                                  ? widget.value.toStringAsFixed(1)
-                                  : widget.value.toInt().toString(),
+                                ? widget.mapValueToString(widget.value)
+                                : widget.showDecimalValue
+                                    ? widget.value.toStringAsFixed(1)
+                                    : widget.value.toInt().toString(),
                             style: _currentValTextStyle(context),
                           ),
                         ),
