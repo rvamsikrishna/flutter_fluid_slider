@@ -167,12 +167,12 @@ class _FluidSliderState extends State<FluidSlider>
     //The radius of the slider thumb control
     thumbDiameter = widget.thumbDiameter ?? 60.0;
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 400),
+      duration: Duration(milliseconds: 200),
       vsync: this,
     );
 
     _thumbAnimation = CurvedAnimation(
-      curve: Curves.bounceOut,
+      curve: Curves.easeOut,
       parent: _animationController,
     );
   }
@@ -288,13 +288,13 @@ class _FluidSliderState extends State<FluidSlider>
   TextStyle _currentValTextStyle(BuildContext context) {
     final TextStyle defaultStyle = widget.showDecimalValue
         ? Theme.of(context)
-            .textTheme
-            .subhead
-            .copyWith(fontWeight: FontWeight.bold)
+        .textTheme
+        .subhead
+        .copyWith(fontWeight: FontWeight.bold)
         : Theme.of(context)
-            .textTheme
-            .title
-            .copyWith(fontWeight: FontWeight.bold);
+        .textTheme
+        .title
+        .copyWith(fontWeight: FontWeight.bold);
 
     return widget.valueTextStyle ?? defaultStyle;
   }
@@ -313,18 +313,18 @@ class _FluidSliderState extends State<FluidSlider>
         //This is used to compute the thumb position and also
         //calculate the delta drag value in the horizontal drag handlers.
         _sliderWidth =
-            constraints.hasBoundedWidth ? constraints.maxWidth : 200.0;
+        constraints.hasBoundedWidth ? constraints.maxWidth : 200.0;
 
         //The width remaining for the thumb to be dragged upto.
         remainingWidth = _sliderWidth - thumbDiameter - 2 * thumbPadding;
 
         //The position of the thumb control of the slider from max value.
         final double thumbPositionLeft =
-            lerpDouble(thumbPadding, remainingWidth, thumbPosFactor);
+        lerpDouble(thumbPadding, remainingWidth, thumbPosFactor);
 
         //The position of the thumb control of the slider from min value.
         final double thumbPositionRight =
-            lerpDouble(remainingWidth, thumbPadding, thumbPosFactor);
+        lerpDouble(remainingWidth, thumbPadding, thumbPosFactor);
 
         //Start position of slider thumb.
         final RelativeRect beginRect = RelativeRect.fromLTRB(
@@ -403,8 +403,8 @@ class _FluidSliderState extends State<FluidSlider>
                             widget.mapValueToString != null
                                 ? widget.mapValueToString(widget.value)
                                 : widget.showDecimalValue
-                                    ? widget.value.toStringAsFixed(1)
-                                    : widget.value.toInt().toString(),
+                                ? widget.value.toStringAsFixed(1)
+                                : widget.value.toInt().toString(),
                             style: _currentValTextStyle(context),
                           ),
                         ),
