@@ -1,3 +1,6 @@
+## [2.0.0-nullsafety.0] 31.03.2021
+
+Pre-release version of Null Safety.
 
 ## [1.0.2] - 27th september 2019
 
