@@ -345,9 +345,9 @@ class _FluidSliderState extends State<FluidSlider>
           height: thumbDiameter,
           decoration: BoxDecoration(
             color: _sliderColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5.0),
-              topRight: Radius.circular(5.0),
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(10.0),
+              right: Radius.circular(10.0),
             ),
           ),
           child: Stack(
