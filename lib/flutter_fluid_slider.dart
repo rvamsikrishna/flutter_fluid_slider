@@ -125,12 +125,7 @@ class FluidSlider extends StatefulWidget {
   ///The diameter of the thumb, it's also the height of the slider
   ///
   ///defaults to 60.0
-  final double thumbDiameter;
-
-  ///The custom Curves for Thumb Animation
-  ///
-  /// defaults to Curves.bounceOut,
-  final Curve thumbCurve;
+  final double? thumbDiameter;
 
   const FluidSlider({
     Key? key,
@@ -148,8 +143,7 @@ class FluidSlider extends StatefulWidget {
     this.thumbColor,
     this.mapValueToString,
     this.showDecimalValue = false,
-    this.thumbDiameter = 60.0,
-    this.thumbCurve = Curves.bounceOut,
+    this.thumbDiameter,
   })  : assert(min <= max),
         assert(value >= min && value <= max),
         super(key: key);
@@ -170,14 +164,14 @@ class _FluidSliderState extends State<FluidSlider>
   initState() {
     super.initState();
     //The radius of the slider thumb control
-    thumbDiameter = widget.thumbDiameter;
+    thumbDiameter = widget.thumbDiameter ?? 60.0;
     _animationController = AnimationController(
       duration: Duration(milliseconds: 400),
       vsync: this,
     );
 
     _thumbAnimation = CurvedAnimation(
-      curve: widget.thumbCurve,
+      curve: Curves.fastOutSlowIn,
       parent: _animationController,
     );
   }
