@@ -1,12 +1,12 @@
 name: flutter_fluid_slider
 description: A fluid design slider that works just like the Slider material widget.
-version: 1.0.2
+version: 2.0.0-nullsafety.0
 author: Vamsi Krishna <rvamsi1993@gmail.com>
 homepage: https://github.com/rvamsikrishna/flutter_fluid_slider.git
 documentation:
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:

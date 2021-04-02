@@ -18,7 +18,7 @@ Just add the package to your dependencies in the `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fluid_slider: ^1.0.2
+  flutter_fluid_slider: ^2.0.0-nullsafety.0
 ```
 
 ### Basic Usage
@@ -50,13 +50,11 @@ FluidSlider(
 
 - `end` : The widget to be displayed as the max label. For eg: an Icon can be displayed. If not provided the `max` value is displayed as text.
 
-- `onChanged` : [**Required**] Called during a drag when the user is selecting a new value for the slider
+- `onChanged` : Called during a drag when the user is selecting a new value for the slider by dragging.
 
-  by dragging.
+- The slider passes the new value to the callback but does not actually change state until the parent widget rebuilds the slider with the new value.
 
-  - The slider passes the new value to the callback but does not actually change state until the parent widget rebuilds the slider with the new value.
-
-  - If null, the slider will be displayed as disabled.
+- If null, the slider will be displayed as disabled.
 
 - `onChangeStart` : Called when the user starts selecting a new value for the slider. The value passed will be the last `value` that the slider had before the change began.
 
