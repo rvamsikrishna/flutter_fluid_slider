@@ -6,7 +6,7 @@
 
 Inspired by a dribbble by [Virgil Pana](https://dribbble.com/virgilpana).
 
-![enter image description here](https://lh3.googleusercontent.com/VqMBrwHTCI_e9nc4C0IbyD2W-Bytj46VVKWdr198MqVJ2UnzQ8R3W5vK9JriayLNGFx9RkPKAACl "Demo gif")
+![demo](https://i.imgur.com/34mAvRj.gif)
 
 A fluid design slider that works just like the [Slider](https://docs.flutter.io/flutter/material/Slider-class.html) material widget.
 
